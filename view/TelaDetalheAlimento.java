@@ -1,5 +1,9 @@
 package view;
-
+/**
+ * Classe respons�vel por criar e apresentar a parte de lista com os nomes dos alimentos e os seus nutrientes
+ * @author João Paulo Lima da Silva
+ * @version 1.0 (28/04/2021)
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.awt.Color;
 import controller.*;
 
 public class TelaDetalheAlimento implements ActionListener {
@@ -39,6 +44,7 @@ public class TelaDetalheAlimento implements ActionListener {
 	private int posicao;
 	private int opcao;
 	private String s;
+	
 
 	public void inserirEditar(int op, DadosController d, 
 			TelaAlimento p, int pos) {
@@ -48,23 +54,27 @@ public class TelaDetalheAlimento implements ActionListener {
 		dados = d;
 
 		if (op == 1) s = "Detalhe do Alimento";
-
+		if (op == 2) s = "Cadastro do Alimento";
 		janela = new JFrame(s);
+		janela.getContentPane().setBackground(Color.lightGray);
+			
 
 		//Preenche dados com dados do Alimento clicado
 		if (op == 1) {
 			valorNome = new JTextField(dados.getAlimento()[pos].getAlimento(), 200);
-			valorCal = new JTextField(String.valueOf(dados.getMacros()[pos].getCalorias()), 3);
-			valorCarb = new JTextField(String.valueOf(dados.getMacros()[pos].getCarboidratos()), 3);
-			valorPro = new JTextField(String.valueOf(dados.getMacros()[pos].getProteinas()), 3);
-			valorLip = new JTextField(String.valueOf(dados.getMacros()[pos].getLipidios()), 3);
-			valorCol = new JTextField(String.valueOf(dados.getLipidios()[pos].getColesterol()), 3);
-			valorSat = new JTextField(String.valueOf(dados.getLipidios()[pos].getAcidoSat()), 3);
-            valorMon = new JTextField(String.valueOf(dados.getLipidios()[pos].getAcidoGraxoMon()), 3);
-            valorPol = new JTextField(String.valueOf(dados.getLipidios()[pos].getAcidoGraxoPol()), 3);
-            valorGra = new JTextField(String.valueOf(dados.getLipidios()[pos].getAcidoGraxoTran()), 3);
+			valorCal = new JTextField(String.valueOf(dados.getAlimento()[pos].getCalorias()), 3);
+			valorCarb = new JTextField(String.valueOf(dados.getAlimento()[pos].getCarboidratos()), 3);
+			valorPro = new JTextField(String.valueOf(dados.getAlimento()[pos].getProteinas()), 3);
+			valorLip = new JTextField(String.valueOf(dados.getAlimento()[pos].getLipidios()), 3);
+			valorCol = new JTextField(String.valueOf(dados.getAlimento()[pos].getColesterol()), 3);
+			valorSat = new JTextField(String.valueOf(dados.getAlimento()[pos].getAcidoSat()), 3);
+            valorMon = new JTextField(String.valueOf(dados.getAlimento()[pos].getAcidoGraxoMon()), 3);
+            valorPol = new JTextField(String.valueOf(dados.getAlimento()[pos].getAcidoGraxoPol()), 3);
+            valorGra = new JTextField(String.valueOf(dados.getAlimento()[pos].getAcidoGraxoTran()), 3);
 			botaoSalvar.setBounds(30, 300, 115, 30);
+			botaoSalvar.setForeground(Color.black);
 			botaoExcluir.setBounds(245, 300, 115, 30);
+			botaoExcluir.setForeground(Color.red);
 		} else { //N�o preenche com dados
 
 			valorNome = new JTextField(200);
@@ -100,7 +110,7 @@ public class TelaDetalheAlimento implements ActionListener {
 		labelGra.setBounds(30, 260, 150, 25);
 		valorGra.setBounds(180, 260, 180, 25);
 
-
+		if (op==1){
 		this.janela.add(labelNome);
 		this.janela.add(valorNome);
 		this.janela.add(labelCarb);
@@ -125,8 +135,15 @@ public class TelaDetalheAlimento implements ActionListener {
 		this.janela.add(valorGra);
 		this.janela.add(botaoSalvar);
 		this.janela.add(botaoExcluir);
+		}
 
+		if (op == 1) {
+			botaoSalvar.setBounds(30, 300, 115, 30);
+			botaoExcluir.setBounds(245, 300, 115, 30);
+			this.janela.add(botaoExcluir);
+		}
 		this.janela.setLayout(null);
+		
 		this.janela.setSize(400, 400);
 		this.janela.setVisible(true);
 
@@ -143,7 +160,7 @@ public class TelaDetalheAlimento implements ActionListener {
 				if(opcao == 1) //cadastro de novo aluno
 					novoDado[0] = Integer.toString(dados.getQtdAlimento());
 				else // edicao de dado existente
-					novoDado[0] = Integer.toString(posicao);
+				novoDado[0] = Integer.toString(posicao);
 
 				novoDado[1] =  valorNome.getText();
 				novoDado[3] =  valorCal.getText();
@@ -155,7 +172,7 @@ public class TelaDetalheAlimento implements ActionListener {
 				novoDado[9] =  valorPol.getText();
 				novoDado[10] = valorGra.getText();
 
-				if (opcao == 1 ) {
+				if (opcao == 1 || opcao == 3) {
 					novoDado[2] =  valorCal.getText();
 					res = dados.inserirEditarAlimento(novoDado);
 				} else {
@@ -170,15 +187,13 @@ public class TelaDetalheAlimento implements ActionListener {
 
 			} catch (NullPointerException exc1) {
 				mensagemErroCadastro();
-			} catch (NumberFormatException exc2) {
-				mensagemErroCadastro();
-			}
+			}			
 		}
 
 		if(src == botaoExcluir) {
 			boolean res = false;
 
-			if (opcao == 1 || opcao == 2) {//exclui Alimento
+			if (opcao == 1) {//exclui Alimento
 				res = dados.removerAlimento(posicao);
 				if (res) mensagemSucessoExclusao(); 
 				else mensagemErroExclusao(); 

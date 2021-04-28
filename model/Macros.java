@@ -1,10 +1,19 @@
 package model;
-
+/**
+ * Classe respons�vel por organizar e armazenar os Macros do alimento
+ * @author João Paulo Lima da Silva
+ * @version 1.0 (28/04/2021)
+ */
 public class Macros extends Nutrientes {
     private int calorias;
     private int carboidratos;
     private int proteinas;
     private int lipidios;
+
+    public Macros(){
+        super();
+    }
+
     //construtor
     public Macros (int cal, int car, int pro, int lip) {
         this.calorias = cal;

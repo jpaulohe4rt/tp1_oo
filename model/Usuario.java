@@ -1,13 +1,16 @@
 package model;
 
+/**
+ * Classe respons�vel por organizar e armazenar oo nome do Usuario
+ * @author João Paulo Lima da Silva
+ * @version 1.0 (28/04/2021)
+ */
 public class Usuario {
     private String nome;
-    private String senha;
 
     // construtor
-     public Usuario(String nome, String senha) {
+     public Usuario(String nome) {
         this.nome = nome;
-        this.senha = senha;
     }
     // retorna o nome
     public String getNome() {
@@ -18,10 +21,4 @@ public class Usuario {
         this.nome = nome;
     }
 
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 }
