@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Classe respons�vel por organizar e armazenar os lipidios do alimento
+ * @author João Paulo Lima da Silva
+ * @version 1.0 (28/04/2021)
+ */
 public class Lipidios extends Nutrientes {
     private int colesterol;
     private int acidoGraxoSat;

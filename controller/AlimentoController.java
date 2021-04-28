@@ -1,7 +1,11 @@
 package controller;
 
 import model.*;
-
+/**
+ * Classe respons�vel por organizar e armazenar os dados do alimento
+ * @author João Paulo Lima da Silva
+ * @version 1.0 (28/04/2021)
+ */
 public class AlimentoController {
     private Alimento[] a;
     private Lipidios[] l;
@@ -10,8 +14,6 @@ public class AlimentoController {
 
     public AlimentoController(DadosController d) {
         a = d.getAlimento();
-		l = d.getLipidios();
-		m = d.getMacros();
         qtdAlimentos = d.getQtdAlimento();
     }
 
